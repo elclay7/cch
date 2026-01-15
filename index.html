@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEGURIDAD: Content Security Policy (CSP) -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self'; 
+        script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; 
+        style-src 'self' 'unsafe-inline'; 
+        connect-src 'self' https://mindicador.cl; 
+        img-src 'self' data: blob:;
+        font-src 'self' data:;
+    ">
+
+    <title>Simulador Hipotecario</title>
+    <!-- Librería externa para generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Enlace a la hoja de estilos externa -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="header-section">
+        <h1>Simulador Hipotecario</h1>
+        <p class="subtitle">Planifica tu futuro con precisión 🇨🇱</p>
+    </div>
+
+    <!-- Panel de Entrada -->
+    <div class="card">
+        <h2>Datos del Crédito</h2>
+        
+        <div class="input-group">
+            <div class="label-row">
+                <label for="ufValue">Valor de la UF</label>
+                <button type="button" class="btn-mini" onclick="fetchUFValue()" id="btnFetchUF">🔄 Valor de hoy</button>
+            </div>
+            <input type="text" id="ufValue" placeholder="Ej: 38.000,00" inputmode="decimal" oninput="formatCLInput(this)">
+        </div>
+
+        <div class="input-group">
+            <label for="salary">Sueldo Líquido</label>
+            <input type="text" id="salary" placeholder="Ej: 2.500.000" inputmode="decimal" oninput="formatCLInput(this)">
+        </div>
+
+        <div class="input-group">
+            <label for="propValue">Valor de la Propiedad (UF)</label>
+            <input type="text" id="propValue" placeholder="Ej: 4.000" inputmode="decimal" oninput="formatCLInput(this)">
+        </div>
+
+        <div class="grid-2">
+            <div class="input-group">
+                <label for="downPayment">Pie (%)</label>
+                <input type="number" id="downPayment" placeholder="Ej: 20" min="0" max="99">
+            </div>
+            <div class="input-group">
+                <label for="years">Plazo (Años)</label>
+                <input type="number" id="years" placeholder="Ej: 30" min="5" max="40">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="cae">CAE (%)</label>
+            <input type="number" id="cae" placeholder="Ej: 4.5" step="0.1">
+        </div>
+
+        <!-- Grupo de botones -->
+        <div class="button-group">
+            <button class="btn-calculate" onclick="calculateMortgage()">Calcular</button>
+            <button class="btn-clear" onclick="clearInputs()">Limpiar</button>
+        </div>
+    </div>
+
+    <!-- Panel de Resultados -->
+    <div class="card results-container" id="resultsPanel">
+        <!-- Contenido agrupado para captura PDF -->
+        <div id="pdfContent">
+            <h2>Resumen Financiero</h2>
+
+            <div class="result-item highlight">
+                <span class="result-label">Dividendo Mensual Estimado</span>
+                <span class="result-value large" id="resDividendCLP">$0</span>
+                <span class="result-sub" id="resDividendUF">0.00 UF</span>
+            </div>
+
+            <div class="result-item" style="margin-top: -10px; background: transparent; padding-left:0;">
+                 <span class="result-label">Crédito a <span id="resYears">0</span> años con CAE de <span id="resCAE">0</span>%</span>
+            </div>
+
+            <div class="grid-2">
+                <div class="result-item">
+                    <span class="result-label">Pie (<span id="resPiePercent">0</span>%)</span>
+                    <span class="result-value" id="resPieUF">0 UF</span>
+                    <span class="result-sub" id="resPieCLP">$0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Monto del Préstamo</span>
+                    <span class="result-value" id="resLoanUF">0 UF</span>
+                    <span class="result-sub" id="resLoanCLP">$0</span>
+                </div>
+            </div>
+
+            <div class="result-item" style="background-color: #f2f2f7; margin-top: 15px;">
+                <span class="result-label">Renta Líquida Exigida (25% carga)</span>
+                <span class="result-value" id="resIncomeReq">$0</span>
+                <span class="result-sub" id="resIncomeStatus"></span>
+            </div>
+        </div>
+        
+        <!-- Botón de descarga -->
+        <button id="btnDownload" class="btn-download" onclick="downloadPDF()">Descargar PDF</button>
+    </div>
+</div>
+
+<div class="footer">
+    Creado por @jonnathanclay
+</div>
+
+<!-- Enlace al archivo de lógica externo -->
+<script src="script.js"></script>
+
+</body>
+</html>
