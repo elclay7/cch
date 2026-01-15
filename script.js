@@ -157,6 +157,7 @@ const formatterCLP = new Intl.NumberFormat('es-CL', {
    }
    
    // --- DESCARGA PDF ---
+   /* --- 
    function downloadPDF() {
     const element = document.getElementById('pdfContent');
     const opt = {
@@ -168,3 +169,4 @@ const formatterCLP = new Intl.NumberFormat('es-CL', {
     };
     html2pdf().set(opt).from(element).save();
    }
+    --- */
