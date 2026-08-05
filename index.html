@@ -3,19 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEGURIDAD: Content Security Policy (CSP) -->
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self'; 
-        script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; 
-        style-src 'self' 'unsafe-inline'; 
-        connect-src 'self' https://mindicador.cl; 
-        img-src 'self' data: blob:;
-        font-src 'self' data:;
-    ">
 
-    <title>Simulador Hipotecario</title>
-    
+    <!-- Metadatos de identidad y seguridad -->
+    <meta name="description" content="Simulador de crédito hipotecario educativo e independiente. No está afiliado a bancos ni instituciones financieras. No solicitamos ni guardamos información personal.">
+    <meta name="author" content="Jonnathan Clay (@jonnathanclay)">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0071e3">
+
+    <!-- Open Graph / redes sociales -->
+    <meta property="og:title" content="Simulador Hipotecario Chile - Herramienta Educativa Independiente">
+    <meta property="og:description" content="Calcula de forma estimada tu dividendo hipotecario. Simulador gratuito, sin registro y sin guardar datos.">
+    <meta property="og:type" content="website">
+    <!-- Reemplaza la URL canonical por tu dominio propio cuando migres el sitio -->
+    <meta property="og:url" content="https://cdch.xcloud.cl/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- SEGURIDAD: Content Security Policy (CSP) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://mindicador.cl; img-src 'self' data: blob:; font-src 'self' data:; base-uri 'self'; form-action 'self';">
+
+    <!-- No almacenar datos sensibles en caché del navegador -->
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+
+    <title>Simulador Hipotecario Chile - Herramienta Educativa Independiente</title>
+
     <!-- Enlace a la hoja de estilos externa -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -25,6 +38,10 @@
     <div class="header-section">
         <h1>Simulador Hipotecario</h1>
         <p class="subtitle">Planifica tu futuro con precisión 🇨🇱</p>
+
+        <div class="trust-banner" role="alert">
+            <strong>⚠️ Aviso de seguridad:</strong> Este es un simulador educativo e independiente. No está afiliado a ningún banco ni institución financiera. No solicitamos ni guardamos información personal: todos los cálculos se realizan en tu navegador.
+        </div>
     </div>
 
     <!-- Panel de Entrada -->
@@ -111,7 +128,13 @@
 </div>
 
 <div class="footer">
-    Creado por @jonnathanclay
+    <p>Creado por Jonnathan Clay (@jonnathanclay)</p>
+    <p class="footer-links">
+        <a href="privacy.html">Política de Privacidad</a>
+        <span>•</span>
+        <a href="https://github.com/jonnathanclay/cch" target="_blank" rel="noopener noreferrer">Código fuente en GitHub</a>
+    </p>
+    <p class="footer-note">Herramienta sin fines comerciales. Los resultados son estimaciones y no constituyen una oferta de crédito.</p>
 </div>
 
 <!-- Enlace al archivo de lógica externo -->

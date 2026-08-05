@@ -1,5 +1,10 @@
 /* --- LÓGICA JAVASCRIPT --- */
 
+// Simulador hipotecario educativo e independiente.
+// NO se envían ni almacenan datos personales. Todos los cálculos se ejecutan
+// localmente en el navegador del usuario. La única petición de red externa
+// es a mindicador.cl (HTTPS) para obtener el valor actual de la UF.
+
 const formatterCLP = new Intl.NumberFormat('es-CL', {
     style: 'currency',
     currency: 'CLP',
@@ -12,39 +17,58 @@ const formatterUF = new Intl.NumberFormat('es-CL', {
 });
 
 // --- FETCH API UF ---
+const UF_API_URL = 'https://mindicador.cl/api';
+const UF_API_TIMEOUT_MS = 10000;
+
 async function fetchUFValue() {
     const btn = document.getElementById('btnFetchUF');
     const input = document.getElementById('ufValue');
     const originalText = btn.innerText;
-    
+
     btn.innerText = "Cargando...";
     btn.disabled = true;
-    
+
     try {
-        const response = await fetch('https://mindicador.cl/api');
+        // AbortController añade un timeout para no dejar la petición colgada
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), UF_API_TIMEOUT_MS);
+
+        const response = await fetch(UF_API_URL, {
+            method: 'GET',
+            signal: controller.signal,
+            headers: { 'Accept': 'application/json' }
+        });
+        clearTimeout(timeoutId);
+
         if (!response.ok) throw new Error('Error en la red');
-        
+
         const data = await response.json();
-        const valorUF = data.uf.valor;
-        
+        const valorUF = data?.uf?.valor;
+
+        if (typeof valorUF !== 'number' || valorUF <= 0) {
+            throw new Error('Valor de UF no válido');
+        }
+
         const formattedUF = new Intl.NumberFormat('es-CL', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         }).format(valorUF);
-        
+
         input.value = formattedUF;
-        
+
         btn.innerText = "¡Listo!";
         setTimeout(() => {
             btn.innerText = originalText;
             btn.disabled = false;
         }, 1000);
-        
+
     } catch (error) {
-        console.error(error);
-        alert("No se pudo obtener el valor de la UF automáticamente. Por favor ingrésalo manualmente.");
-        btn.innerText = originalText;
-        btn.disabled = false;
+        console.error('Error al obtener UF:', error);
+        btn.innerText = "Error al cargar UF";
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }, 2000);
     }
 }
 
