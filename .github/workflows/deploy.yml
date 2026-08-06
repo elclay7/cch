@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Desplegar mediante SSH
-        uses: appleboy/ssh-action@main
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
