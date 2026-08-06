@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout del código
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: Desplegar mediante SSH
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@main
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
@@ -25,12 +25,12 @@ jobs:
             mkdir -p /storage/webservices/cdch
 
             # Si ya existe un clon anterior en un directorio temporal, actualizarlo o clonar de nuevo
-            if [ -d "/tmp/cdch_repo" ]; then
-              rm -rf /tmp/cdch_repo
+            if [ -d "/storage/webservices/tmp/cdch_repo" ]; then
+              rm -rf /storage/webservices/tmp/cdch_repo
             fi
 
             # Clonar el repositorio actualizado
-            git clone https://github.com/elclay7/cdch.git /tmp/cdch_repo
+            git clone https://github.com/elclay7/cdch.git /storage/webservices/tmp/cdch_repo
 
             # Asegurar que el directorio de destino existe
             mkdir -p /storage/webservices/cdch/html
@@ -39,7 +39,7 @@ jobs:
             rm -rf /storage/webservices/cdch/html/*
 
             # Copiar el nuevo contenido de la carpeta 'html' al destino final
-            cp -r /tmp/cdch_repo/html/* /storage/webservices/cdch/html/
+            cp -r /storage/webservices/tmp/cdch_repo/html/* /storage/webservices/cdch/html/
 
             # Limpiar directorio temporal
-            rm -rf /tmp/cdch_repo
+            rm -rf /storage/webservices/tmp/cdch_repo
