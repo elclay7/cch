@@ -1,6 +1,6 @@
-# Simulador Hipotecario Chile
+# Simulador de Credito Hipotecario 🇨🇱
 
-Calculadora de crédito hipotecario educativa e independiente para Chile.
+Calculadora de crédito hipotecario para Chile.
 
 ## Características
 
@@ -20,7 +20,3 @@ Calculadora de crédito hipotecario educativa e independiente para Chile.
 - HTML5, CSS3 y JavaScript vanilla.
 - Sin frameworks ni dependencias externas.
 - Sin backend ni base de datos.
-
-## Autor
-
-Creado por Jonnathan Clay (@jonnathanclay).
