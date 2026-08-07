@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout del código
-        uses: actions/checkout@main
+        uses: actions/checkout@vmain
 
       - name: Desplegar mediante SSH
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@vmaster
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
