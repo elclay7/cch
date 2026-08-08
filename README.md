@@ -5,7 +5,7 @@ Calculadora de crédito hipotecario para Chile.
 ## Características
 
 - Cálculo estimado del dividendo mensual en CLP y UF.
-- Consulta del valor actual de la UF mediante la API pública de [mindicador.cl](https://mindicador.cl) (solo HTTPS).
+- Consulta del valor actual de la UF mediante la API pública de [mindicador.cl](https://mindicador.cl).
 - Interfaz simple, sin registro y sin almacenamiento de datos.
 
 ## Aviso de seguridad
@@ -13,7 +13,7 @@ Calculadora de crédito hipotecario para Chile.
 - Este sitio **no está afiliado** a ningún banco ni institución financiera.
 - **No se solicita ni guarda información personal**. Todos los cálculos se ejecutan localmente en el navegador del usuario.
 - Única petición de red externa: `https://mindicador.cl/api` para obtener el valor de la UF.
-- Los resultados son estimaciones con fines educativos; no constituyen una oferta de crédito.
+- Los resultados son estimaciones con fines informativos; no constituyen una oferta de crédito.
 
 ## Tecnologías
 
